@@ -19,22 +19,19 @@ async function processUpdate(update) {
   const chatId = update.message.chat.id;
   const text = update.message.text || '';
 
-  // /start command handle
   if (text.startsWith('/start')) {
-    const param = text.split(' ')[1]; // episode ID milega
+    const param = text.split(' ')[1];
 
     if (!param) {
       await sendMessage(chatId, '🎌 *AnimeZone Bot*\n\nEpisode download karne ke liye mini app use karo!');
       return;
     }
 
-    // Database - episode mapping
     const episodeDB = {
-      'jjk_ep1': 2,      // channel mein message ID 2
+      'jjk_ep1': 2,
       'jjk_ep2': 3,
       'ds_ep1': 4,
       'ds_ep2': 5,
-      // aur episodes add karte raho
     };
 
     const messageId = episodeDB[param];
@@ -44,8 +41,7 @@ async function processUpdate(update) {
       return;
     }
 
-    // Channel se video forward karo
-    await forwardMessage(chatId, CHANNEL_ID, messageId);
+    await copyMessage(chatId, CHANNEL_ID, messageId);
   }
 }
 
@@ -61,8 +57,8 @@ async function sendMessage(chatId, text) {
   });
 }
 
-async function forwardMessage(chatId, fromChatId, messageId) {
-  await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/forwardMessage`, {
+async function copyMessage(chatId, fromChatId, messageId) {
+  await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/copyMessage`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -71,4 +67,4 @@ async function forwardMessage(chatId, fromChatId, messageId) {
       message_id: messageId
     })
   });
-      }
+}
