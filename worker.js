@@ -567,4 +567,4 @@ async function copyMessage(chatId, fromChatId, messageId) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ chat_id: chatId, from_chat_id: fromChatId, message_id: messageId })
   });
-}
+        }
