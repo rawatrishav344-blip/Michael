@@ -4,7 +4,7 @@ const ADMIN_ID = 5840296032;
 
 const kv = await Deno.openKv();
 
-Deno.serve(async (req) => {
+Deno.serve({ port: 8080 }, async (req) => {
   if (req.method === 'POST') {
     try {
       const update = await req.json();
